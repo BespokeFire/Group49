@@ -30,6 +30,17 @@ def my_datetime(num_sec):
     lp_secs = pst_lps * day_secs
     num_sec -= lp_secs
 
+    # recalculate the year
+    add_years = math.floor(num_sec/(365*day_secs))
+    year = 1970 + add_years
+    is_lp = is_leap(year)
+
+    # get how many days are left in the year
+    rm_days = math.floor((num_sec % (365*day_secs)) / day_secs)
+    rm_days += day
+    day, mnth = findMo(is_lp, rm_days)
+    month += mnth
+
     # stringify month and day - check if 0 needs to be added
     if month < 10:
         month = "0" + str(month)
