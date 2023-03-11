@@ -65,4 +65,14 @@ def numLeaps(year):
 
 
 def findMo(is_leap, days):
-    return
+    mo = 0
+    if is_leap is False:
+        mos = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    else:
+        mos = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+    while days > mos[mo]:
+        days -= mos[mo]
+        mo += 1
+
+    return (days, mo)
