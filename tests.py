@@ -10,5 +10,6 @@ class TestCase(unittest.TestCase):
         # Checks that returned value is a string
         self.assertIsInstance(my_datetime(0), str)
 
+
 if __name__ == '__main__':
     unittest.main()
