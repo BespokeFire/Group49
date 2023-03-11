@@ -30,6 +30,15 @@ class TestCase(unittest.TestCase):
     def test8(self):
         self.assertEqual(findMo(False, 35), (4, 1))
 
+    def test9(self):
+        self.assertEqual(my_datetime(123456789), "11-29-1973")
+
+    def test10(self):
+        self.assertEqual(my_datetime(9876543210), "12-22-2282")
+
+    def test11(self):
+        self.assertEqual(my_datetime(201653971200), "02-29-8360")
+
 
 if __name__ == '__main__':
     unittest.main()
