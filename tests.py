@@ -1,5 +1,5 @@
 import unittest
-from task import my_datetime
+from task import my_datetime, is_leap
 
 
 class TestCase(unittest.TestCase):
@@ -14,6 +14,12 @@ class TestCase(unittest.TestCase):
 
     def test3(self):
         self.assertEqual(my_datetime(0), "01-01-1970")
+
+    def test4(self):
+        self.assertTrue(is_leap(1976))
+
+    def test5(self):
+        self.assertFalse(is_leap(1974))
 
 
 if __name__ == '__main__':
