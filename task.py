@@ -42,4 +42,6 @@ def is_leap(year):
 
 
 def numLeaps(year):
-    return
+    cur = (year // 4) - (year // 100) + (year // 400)
+    pst = 477  # 477 represents the number of leap years prior to 1970
+    return cur - pst
