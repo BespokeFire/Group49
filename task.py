@@ -18,6 +18,23 @@ def my_datetime(num_sec):
     add_years = math.floor(num_sec/yr_secs)
     year += add_years
 
+    # Find how many leap years there have been since 1970
+    pst_lps = numLeaps(year)
+
+    # check if the current year is a leap year and if so account for it
+    is_lp = is_leap(year)
+    if is_lp:
+        pst_lps -= 1
+
+    # subtract leap days from total seconds
+    lp_secs = pst_lps * day_secs
+    num_sec -= lp_secs
+
+    # recalculate the year
+    add_years = math.floor(num_sec/(365*day_secs))
+    year = 1970 + add_years
+    is_lp = is_leap(year)
+
     # stringify month and day - check if 0 needs to be added
     if month < 10:
         month = "0" + str(month)
@@ -45,3 +62,7 @@ def numLeaps(year):
     cur = (year // 4) - (year // 100) + (year // 400)
     pst = 477  # 477 represents the number of leap years prior to 1970
     return cur - pst
+
+
+def findMo(is_leap, days):
+    return

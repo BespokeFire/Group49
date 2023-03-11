@@ -1,5 +1,5 @@
 import unittest
-from task import my_datetime, is_leap, numLeaps
+from task import my_datetime, is_leap, numLeaps, findMo
 
 
 class TestCase(unittest.TestCase):
@@ -26,6 +26,9 @@ class TestCase(unittest.TestCase):
 
     def test7(self):
         self.assertEqual(numLeaps(8360), 1550)
+
+    def test8(self):
+        self.assertEqual(findMo(False, 35), (4, 1))
 
 
 if __name__ == '__main__':
