@@ -12,7 +12,7 @@ def my_datetime(num_sec):
     year = 1970
 
     day_secs = 24*60*60
-    yr_secs = (365.2425*day_secs)
+    yr_secs = (365.242189*day_secs)
 
     # Estimate what year we're in
     add_years = math.floor(num_sec/yr_secs)
@@ -25,6 +25,7 @@ def my_datetime(num_sec):
     is_lp = is_leap(year)
     if is_lp:
         pst_lps -= 1
+    was_lp = is_lp
 
     # subtract leap days from total seconds
     lp_secs = pst_lps * day_secs
@@ -34,6 +35,28 @@ def my_datetime(num_sec):
     add_years = math.floor(num_sec/(365*day_secs))
     year = 1970 + add_years
     is_lp = is_leap(year)
+    up_pst_lp = numLeaps(year)
+
+    if is_lp:
+        up_pst_lp -= 1
+
+    if was_lp is True and is_lp is False:
+        rm_days = math.floor((num_sec % (365*day_secs)) / day_secs) + 1
+        if rm_days == 1:
+            year -= 1
+            return "12-31-" + str(year)
+
+    if was_lp is False and is_lp is True and up_pst_lp < pst_lps:
+        was_lp = is_lp
+        num_sec += day_secs
+        add_years = math.floor(num_sec/(365*day_secs))
+        year = 1970 + add_years
+        is_lp = is_leap(year)
+        if was_lp is True and is_lp is False:
+            rm_days = math.floor((num_sec % (365*day_secs)) / day_secs) + 1
+            if rm_days == 1:
+                year -= 1
+                return "12-31-" + str(year)
 
     # get how many days have passed in the year
     rm_days = math.floor((num_sec % (365*day_secs)) / day_secs)
