@@ -36,7 +36,24 @@ def conv_num(num_str):
                 return None
         return sign * int(num_str[2:], 16)
     
+    # Track the number of decimal points in the string 
     
+    decimal_point_count = 0
+    
+    for i, char in enumerate(num_str):
+        if char == ".":
+            decimal_point_count += 1
+            if decimal_point_count > 1:
+                return None
+        elif not is_digit(char):
+            return None
+    
+    # Return the converted string
+    
+    return sign * float(num_str) if decimal_point_count == 1 else sign * int(num_str)
+
+
+    ## HELPER FUNCTIONS FOR conv_num
     
     def to_lower(string):
         """
@@ -69,7 +86,12 @@ def conv_num(num_str):
         
         return char in "0123456789abcdef"
 
-
+    def is_digit(char):
+        """
+        Checks if character is a digit based on ASCII code
+        """
+        
+        return ord(char) >= 48 and ord(char) <= 57
 
 
 
