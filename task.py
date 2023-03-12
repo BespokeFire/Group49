@@ -1,5 +1,88 @@
 import math
 
+def conv_num(num_str):
+    """
+    Converts a string representation of an int/float/hex to an int or float. 
+    """
+    
+    # Make sure that the input is a non-empty string. 
+    
+    try:
+        _ = str(num_str)    
+    except:
+        return None
+    
+    if len(num_str) == 0:
+        return None
+    
+    # Convert the string into lowercase.
+    
+    num_str = to_lower(num_str)
+    
+    def to_lower(string):
+        """
+        Converts string to all lowercase
+        """
+        
+        lower_string = ""
+        
+        for char in string:
+            if ord(char) >= 65 and ord(char) <= 90:
+                lower_string += chr(ord(char) + 32)
+            else:
+                lower_string += char
+        
+        return lower_string
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def my_func():
     return "Hello World"
