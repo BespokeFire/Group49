@@ -28,6 +28,15 @@ def conv_num(num_str):
     else:
         sign = 1
     
+    # Check if the string is a hexadecimal
+    
+    if num_str.startswith("0x"):
+        for char in num_str[2:]:
+            if not is_hex_digit(char):
+                return None
+        return sign * int(num_str[2:], 16)
+    
+    
     
     def to_lower(string):
         """
@@ -52,7 +61,13 @@ def conv_num(num_str):
     
         return string[0] == "+" or string[0] == "-"
 
-
+    
+    def is_hex_digit(char):
+        """
+        Checks if a character is a valid hexadecimal digit
+        """
+        
+        return char in "0123456789abcdef"
 
 
 
