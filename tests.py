@@ -39,6 +39,8 @@ class TestCase(unittest.TestCase):
     def test11(self):
         self.assertEqual(my_datetime(201653971200), "02-29-8360")
 
-
+    def test12(self):
+        self.assertEqual(my_datetime(9687991520), "12-31-2276")
+    
 if __name__ == '__main__':
     unittest.main()

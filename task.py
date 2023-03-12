@@ -35,7 +35,7 @@ def my_datetime(num_sec):
     year = 1970 + add_years
     is_lp = is_leap(year)
 
-    # get how many days are left in the year
+    # get how many days have passed in the year
     rm_days = math.floor((num_sec % (365*day_secs)) / day_secs)
     rm_days += day
     day, mnth = findMo(is_lp, rm_days)
