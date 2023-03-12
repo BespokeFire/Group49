@@ -124,10 +124,63 @@ def findMo(is_leap, days):
 
 def conv_endian(num, endian='big'):
     """Converts decimal to hexadecimal in endian form"""
-    # Converts decimal to hex and puts it in a list
-    dec_to_hex(num)
+    # Checks if value is negative
+    is_neg = 0
+    if (num < 0):
+        is_neg = 1
+        num *= -1
 
-    return None
+    # Converts decimal to hex and puts it in a list
+    hex_list = dec_to_hex(num)
+
+    if (len(hex_list) == 1):
+        return "0" + str(hex_list[0])
+
+    hex_string = ""
+    count = 0
+    if (endian == "big"):
+        # Coverts hex_list to big-endian from
+        for i in range(len(hex_list)):
+            if (len(hex_list) % 2 == 1 and count == 0):
+                hex_string += "0"
+                hex_string += str(hex_list[count])
+                hex_string += " "
+                count += -1
+            else:
+                hex_string += str(hex_list[count])
+                hex_string += str(hex_list[count + 1])
+                if (count < len(hex_list) - 2):
+                    hex_string += " "
+            count += 2
+            if (count >= len(hex_list)):
+                break
+    elif (endian == "little"):
+        # Coverts hex_list to little-endian from
+        temp_string = ""
+        for i in range(len(hex_list)):
+            if (len(hex_list) % 2 == 1 and count == 0):
+                temp_string += "0"
+                temp_string += str(hex_list[count])
+                hex_string = " " + temp_string
+                count += -1
+            else:
+                temp_string += str(hex_list[count])
+                temp_string += str(hex_list[count + 1])
+                hex_string = temp_string + hex_string
+                if (count < len(hex_list) - 2):
+                    hex_string = " " + hex_string
+            count += 2
+            if (count >= len(hex_list)):
+                break
+            temp_string = ""
+    else:
+        return None
+
+    # Add "-" if num is negative
+    if (is_neg == 1):
+        hex_string = "-" + hex_string
+
+    return hex_string
 
 
 def dec_to_hex(dec):
