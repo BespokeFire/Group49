@@ -93,49 +93,7 @@ def conv_num(num_str):
         
         return ord(char) >= 48 and ord(char) <= 57
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# ----- end of conv_num() implementation -----
 
 def my_func():
     return "Hello World"
