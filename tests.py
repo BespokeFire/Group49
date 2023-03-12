@@ -1,5 +1,6 @@
 import unittest
 from task import my_datetime, is_leap, numLeaps, findMo
+from task import dec_to_hex
 
 
 class TestCase(unittest.TestCase):
@@ -53,6 +54,13 @@ class TestCase(unittest.TestCase):
         self.assertEqual(my_datetime(9687991520), "12-31-2276")
 
     # --- end of my_datetime() testing --- #
+
+    # --- testing conv_endian() function --- #
+    def test13(self):
+        # Verify dec_to_hex converts to hex properly
+        self.assertEqual(dec_to_hex(954786), ["E", 9, 1, "A", 2])
+
+    # --- end of conv_endian() testing --- #
 
 
 if __name__ == '__main__':

@@ -120,3 +120,34 @@ def findMo(is_leap, days):
     return (days, mo)
 
 # ----- end of my_datetime() implementation -----
+
+
+def conv_endian(num, endian='big'):
+    """Converts decimal to hexadecimal in endian form"""
+    # Converts decimal to hex and puts it in a list
+    dec_to_hex(num)
+
+    return None
+
+
+def dec_to_hex(dec):
+    """Converts decimal to hexadecimal and returns a list"""
+    if (dec == 0):
+        return [0]
+
+    hex_list = []
+    value = dec
+    # Creates list of hexadecimal values from dec
+    while (value != 0):
+        remainder = (value / 16) - (value // 16)
+        value = value // 16
+        hex_list.insert(0, int(remainder * 16))
+
+    # Converts values greater than 9 into letters
+    for i in range(len(hex_list)):
+        if (hex_list[i] - 9 > 0):
+            hex_list[i] = chr(hex_list[i] + 55)
+
+    return hex_list
+
+# ----- end of conv_endian() implementation -----
