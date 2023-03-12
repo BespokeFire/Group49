@@ -52,7 +52,7 @@ def conv_num(num_str):
     
     return sign * float(num_str) if decimal_point_count == 1 else sign * int(num_str)
 
-#HELPER FUNCTIONS FOR conv_num
+#HELPER FUNCTIONS for conv_num
     
 def to_lower(string):
     """
