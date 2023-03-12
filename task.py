@@ -136,43 +136,11 @@ def conv_endian(num, endian='big'):
     if (len(hex_list) == 1):
         return "0" + str(hex_list[0])
 
-    hex_string = ""
-    count = 0
+    # Converts hex_list to a string of the specified endian form
     if (endian == "big"):
-        # Coverts hex_list to big-endian from
-        for i in range(len(hex_list)):
-            if (len(hex_list) % 2 == 1 and count == 0):
-                hex_string += "0"
-                hex_string += str(hex_list[count])
-                hex_string += " "
-                count += -1
-            else:
-                hex_string += str(hex_list[count])
-                hex_string += str(hex_list[count + 1])
-                if (count < len(hex_list) - 2):
-                    hex_string += " "
-            count += 2
-            if (count >= len(hex_list)):
-                break
+        hex_string = big_endian(hex_list)
     elif (endian == "little"):
-        # Coverts hex_list to little-endian from
-        temp_string = ""
-        for i in range(len(hex_list)):
-            if (len(hex_list) % 2 == 1 and count == 0):
-                temp_string += "0"
-                temp_string += str(hex_list[count])
-                hex_string = " " + temp_string
-                count += -1
-            else:
-                temp_string += str(hex_list[count])
-                temp_string += str(hex_list[count + 1])
-                hex_string = temp_string + hex_string
-                if (count < len(hex_list) - 2):
-                    hex_string = " " + hex_string
-            count += 2
-            if (count >= len(hex_list)):
-                break
-            temp_string = ""
+        hex_string = little_endian(hex_list)
     else:
         return None
 
@@ -180,6 +148,51 @@ def conv_endian(num, endian='big'):
     if (is_neg == 1):
         hex_string = "-" + hex_string
 
+    return hex_string
+
+
+def big_endian(hex_list):
+    """Converts a hexadecimal list into a string of big-endian form"""
+    hex_string = ""
+    count = 0
+    for i in range(len(hex_list)):
+        if (len(hex_list) % 2 == 1 and count == 0):
+            hex_string += "0"
+            hex_string += str(hex_list[count])
+            hex_string += " "
+            count += -1
+        else:
+            hex_string += str(hex_list[count])
+            hex_string += str(hex_list[count + 1])
+            if (count < len(hex_list) - 2):
+                hex_string += " "
+        count += 2
+        if (count >= len(hex_list)):
+            break
+    return hex_string
+
+
+def little_endian(hex_list):
+    """Converts a hexadecimal list into a string of little-endian form"""
+    hex_string = ""
+    temp_string = ""
+    count = 0
+    for i in range(len(hex_list)):
+        if (len(hex_list) % 2 == 1 and count == 0):
+            temp_string += "0"
+            temp_string += str(hex_list[count])
+            hex_string = " " + temp_string
+            count += -1
+        else:
+            temp_string += str(hex_list[count])
+            temp_string += str(hex_list[count + 1])
+            hex_string = temp_string + hex_string
+            if (count < len(hex_list) - 2):
+                hex_string = " " + hex_string
+        count += 2
+        if (count >= len(hex_list)):
+            break
+        temp_string = ""
     return hex_string
 
 
