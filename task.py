@@ -19,6 +19,16 @@ def conv_num(num_str):
     
     num_str = to_lower(num_str)
     
+    
+    # Check the sign of the number in the string, Remove the sign from the string and Store it in a variable
+    
+    if starts_with_sign(num_str):
+        sign = -1 if num_str[0] == "-" else 1
+        num_str = num_str[1:]
+    else:
+        sign = 1
+    
+    
     def to_lower(string):
         """
         Converts string to all lowercase
@@ -33,8 +43,14 @@ def conv_num(num_str):
                 lower_string += char
         
         return lower_string
+    
         
-
+    def starts_with_sign(string):
+        """
+        Checks the sign in string
+        """
+    
+        return string[0] == "+" or string[0] == "-"
 
 
 
