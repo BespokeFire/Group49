@@ -52,48 +52,48 @@ def conv_num(num_str):
     
     return sign * float(num_str) if decimal_point_count == 1 else sign * int(num_str)
 
-
-    ## HELPER FUNCTIONS FOR conv_num
+#HELPER FUNCTIONS FOR conv_num
     
-    def to_lower(string):
-        """
-        Converts string to all lowercase
-        """
-        
-        lower_string = ""
-        
-        for char in string:
-            if ord(char) >= 65 and ord(char) <= 90:
-                lower_string += chr(ord(char) + 32)
-            else:
-                lower_string += char
-        
-        return lower_string
+def to_lower(string):
+    """
+    Converts string to all lowercase
+    """
     
-        
-    def starts_with_sign(string):
-        """
-        Checks the sign in string
-        """
+    lower_string = ""
     
-        return string[0] == "+" or string[0] == "-"
+    for char in string:
+        if ord(char) >= 65 and ord(char) <= 90:
+            lower_string += chr(ord(char) + 32)
+        else:
+            lower_string += char
+    
+    return lower_string
 
     
-    def is_hex_digit(char):
-        """
-        Checks if a character is a valid hexadecimal digit
-        """
-        
-        return char in "0123456789abcdef"
+def starts_with_sign(string):
+    """
+    Checks the sign in string
+    """
 
-    def is_digit(char):
-        """
-        Checks if character is a digit based on ASCII code
-        """
-        
-        return ord(char) >= 48 and ord(char) <= 57
+    return string[0] == "+" or string[0] == "-"
+
+
+def is_hex_digit(char):
+    """
+    Checks if a character is a valid hexadecimal digit
+    """
+    
+    return char in "0123456789abcdef"
+
+def is_digit(char):
+    """
+    Checks if character is a digit based on ASCII code
+    """
+    
+    return ord(char) >= 48 and ord(char) <= 57
 
 # ----- end of conv_num() implementation -----
+
 
 def my_func():
     return "Hello World"
