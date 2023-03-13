@@ -2,44 +2,31 @@ import math
 
 def conv_num(num_str):
     """
-    Converts a string representation of an int/float/hex to an int or float. 
+    Converts a string representation of a number to an integer or a float.
     """
     
-    # Make sure that the input is a non-empty string. 
-    
-    try:
-        _ = str(num_str)    
-    except:
+    if num_str is None or len(num_str) == 0:
         return None
     
-    if len(num_str) == 0:
-        return None
-    
-    # Convert the string into lowercase.
-    
+    # We first convert the string to all lower case
     num_str = to_lower(num_str)
     
-    
-    # Check the sign of the number in the string, Remove the sign from the string and Store it in a variable
-    
+    # We then check the sign of the number in the string, and then remove the sign from it after storing it in a variable
     if starts_with_sign(num_str):
         sign = -1 if num_str[0] == "-" else 1
         num_str = num_str[1:]
     else:
         sign = 1
     
-    # Check if the string is a hexadecimal
-    
+    # check if the string starts with "0x"
     if num_str.startswith("0x"):
         for char in num_str[2:]:
             if not is_hex_digit(char):
                 return None
-        return sign * int(num_str[2:], 16)
+        return sign * hex_to_int(num_str[2:])
     
-    # Track the number of decimal points in the string 
-    
+    # track of the number of decimal points in the string
     decimal_point_count = 0
-    
     for i, char in enumerate(num_str):
         if char == ".":
             decimal_point_count += 1
@@ -47,57 +34,94 @@ def conv_num(num_str):
                 return None
         elif not is_digit(char):
             return None
-    
-    # Return the converted string
-    
-    return sign * float(num_str) if decimal_point_count == 1 else sign * int(num_str)
+        
+    # return the string as float
+    if decimal_point_count == 0:
+        return sign * str_to_int(num_str)
+    else:
+        int_part, frac_part = num_str.split(".")
+        int_val = sign * str_to_int(int_part)
+        if len(frac_part) == 0:
+            frac_val = 0.0
+        else:
+            frac_val = sign * str_to_frac(frac_part)
+            frac_val = round(frac_val, len(frac_part))
+        return int_val + frac_val
 
-#HELPER FUNCTIONS for conv_num
-    
+
+# helper functions
+
 def to_lower(string):
     """
-    Converts string to all lowercase
+    converts a string to lowercase
     """
     
-    lower_string = ""
-    
-    for char in string:
-        if ord(char) >= 65 and ord(char) <= 90:
-            lower_string += chr(ord(char) + 32)
-        else:
-            lower_string += char
-    
-    return lower_string
+    return "".join([chr(ord(char) + 32) if 65 <= ord(char) <= 90 else char for char in string])
 
-    
+
 def starts_with_sign(string):
     """
-    Checks the sign in string
+    checks the sign in string
     """
-
-    return string[0] == "+" or string[0] == "-"
+    
+    return string.startswith("+") or string.startswith("-")
 
 
 def is_hex_digit(char):
     """
-    Checks if a character is a valid hexadecimal digit
+    checks if a character is a valid hexadecimal digit
     """
     
-    return char in "0123456789abcdef"
+    return char in "0123456789abcdefABCDEF"
+
 
 def is_digit(char):
     """
-    Checks if character is a digit based on ASCII code
+    check if a character is a digit
     """
     
-    return ord(char) >= 48 and ord(char) <= 57
+    return 48 <= ord(char) <= 57
+
+
+def str_to_int(num_str):
+    """
+    converts a string of digits to an integer
+    """
+    
+    num = 0
+    for char in num_str:
+        num = num * 10 + ord(char) - 48
+    return num
+
+
+def str_to_frac(num_str):
+    """
+    converts a string of digits representing a fraction to a float
+    """
+    
+    frac = 0
+    divisor = 10
+    for char in num_str:
+        frac = frac + (ord(char) - 48) / divisor
+        divisor = divisor * 10
+    return frac
+
+
+def hex_to_int(hex_str):
+    """
+    converts a hexadecimal string to an integer
+    """
+    
+    hex_str = to_lower(hex_str)
+    num = 0
+    for char in hex_str:
+        if is_digit(char):
+            num = num * 16 + ord(char) - 48
+        else:
+            num = num * 16 + ord(char) - 87
+    return num
 
 # ----- end of conv_num() implementation -----
-
-
-def my_func():
-    return "Hello World"
-
 
 def my_datetime(num_sec):
     """ This function takes in an integer representing a number of seconds
