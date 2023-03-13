@@ -1,6 +1,5 @@
 import unittest
-from task import my_datetime, is_leap, numLeaps, findMo
-from task import conv_num
+from task import my_datetime, is_leap, numLeaps, findMo, conv_endian, dec_to_hex, conv_num
 
 class TestConvNum(unittest.TestCase):
     def test_conv_num(self):
@@ -17,6 +16,7 @@ class TestConvNum(unittest.TestCase):
         for num_str, expected_result in test_cases:
             result = conv_num(num_str)
             self.assertEqual(result, expected_result)
+
 
 class TestCase(unittest.TestCase):
 
@@ -69,6 +69,49 @@ class TestCase(unittest.TestCase):
         self.assertEqual(my_datetime(9687991520), "12-31-2276")
 
     # --- end of my_datetime() testing --- #
+
+    # --- testing conv_endian() function --- #
+    def test13(self):
+        # Verify dec_to_hex converts to hex properly
+        self.assertEqual(dec_to_hex(954786), ["E", 9, 1, "A", 2])
+
+    def test14(self):
+        # Verify conv_endian returns big endian with no second argument
+        self.assertEqual(conv_endian(954786), "0E 91 A2")
+
+    def test15(self):
+        # Verify conv_endian returns negative values properly
+        self.assertEqual(conv_endian(-954786), "-0E 91 A2")
+
+    def test16(self):
+        # Verify conv_endian returns little endian properly
+        self.assertEqual(conv_endian(954786, "little"), "A2 91 0E")
+
+    def test17(self):
+        # Verify conv_endian returns negative little endian properly
+        self.assertEqual(conv_endian(-954786, "little"), "-A2 91 0E")
+
+    def test18(self):
+        # Verify conv_endian returns invalid endian properly
+        self.assertEqual(conv_endian(-954786, "small"), None)
+
+    def test19(self):
+        # Verify conv_endian returns even length hex value correctly
+        self.assertEqual(conv_endian(2959261, "big"), "2D 27 9D")
+
+    def test20(self):
+        # Verify conv_endian returns invalid endian properly
+        self.assertEqual(conv_endian(2959261, ""), None)
+
+    def test21(self):
+        # Verify conv_endian returns num = 1 properly
+        self.assertEqual(conv_endian(1, "big"), "01")
+
+    def test22(self):
+        # Verify conv_endian returns num = 0 properly
+        self.assertEqual(conv_endian(0, "little"), "00")
+
+    # --- end of conv_endian() testing --- #
 
 
 if __name__ == '__main__':
