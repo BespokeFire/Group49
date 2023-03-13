@@ -1,6 +1,21 @@
 import unittest
-from task import my_datetime, is_leap, numLeaps, findMo
-from task import conv_endian, dec_to_hex
+from task import my_datetime, is_leap, numLeaps, findMo, conv_endian, dec_to_hex, conv_num
+
+class TestConvNum(unittest.TestCase):
+    def test_conv_num(self):
+        test_cases = [
+            ('12345', 12345),
+            ('-123.45', -123.45),
+            ('.45', 0.45),
+            ('123.', 123.0),
+            ('0xAD4', 2772),
+            ('0xAZ4', None),
+            ('12345A', None),
+            ('12.3.45', None),
+        ]
+        for num_str, expected_result in test_cases:
+            result = conv_num(num_str)
+            self.assertEqual(result, expected_result)
 
 
 class TestCase(unittest.TestCase):
@@ -100,4 +115,5 @@ class TestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
+
