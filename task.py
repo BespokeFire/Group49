@@ -120,3 +120,100 @@ def findMo(is_leap, days):
     return (days, mo)
 
 # ----- end of my_datetime() implementation -----
+
+
+def conv_endian(num, endian='big'):
+    """Converts decimal to hexadecimal in endian form"""
+    # Checks if value is negative
+    is_neg = 0
+    if (num < 0):
+        is_neg = 1
+        num *= -1
+
+    # Converts decimal to hex and puts it in a list
+    hex_list = dec_to_hex(num)
+
+    if (len(hex_list) == 1):
+        return "0" + str(hex_list[0])
+
+    # Converts hex_list to a string of the specified endian form
+    if (endian == "big"):
+        hex_string = big_endian(hex_list)
+    elif (endian == "little"):
+        hex_string = little_endian(hex_list)
+    else:
+        return None
+
+    # Add "-" if num is negative
+    if (is_neg == 1):
+        hex_string = "-" + hex_string
+
+    return hex_string
+
+
+def big_endian(hex_list):
+    """Converts a hexadecimal list into a string of big-endian form"""
+    hex_string = ""
+    count = 0
+    for i in range(len(hex_list)):
+        if (len(hex_list) % 2 == 1 and count == 0):
+            hex_string += "0"
+            hex_string += str(hex_list[count])
+            hex_string += " "
+            count += -1
+        else:
+            hex_string += str(hex_list[count])
+            hex_string += str(hex_list[count + 1])
+            if (count < len(hex_list) - 2):
+                hex_string += " "
+        count += 2
+        if (count >= len(hex_list)):
+            break
+    return hex_string
+
+
+def little_endian(hex_list):
+    """Converts a hexadecimal list into a string of little-endian form"""
+    hex_string = ""
+    temp_string = ""
+    count = 0
+    for i in range(len(hex_list)):
+        if (len(hex_list) % 2 == 1 and count == 0):
+            temp_string += "0"
+            temp_string += str(hex_list[count])
+            hex_string = " " + temp_string
+            count += -1
+        else:
+            temp_string += str(hex_list[count])
+            temp_string += str(hex_list[count + 1])
+            hex_string = temp_string + hex_string
+            if (count < len(hex_list) - 2):
+                hex_string = " " + hex_string
+        count += 2
+        if (count >= len(hex_list)):
+            break
+        temp_string = ""
+    return hex_string
+
+
+def dec_to_hex(dec):
+    """Converts decimal to hexadecimal and returns a list"""
+    if (dec == 0):
+        return [0]
+
+    hex_list = []
+    value = dec
+    # Creates list of hexadecimal values from dec
+    while (value != 0):
+        remainder = (value / 16) - (value // 16)
+        value = value // 16
+        hex_list.insert(0, int(remainder * 16))
+
+    # Converts values greater than 9 into letters
+    for i in range(len(hex_list)):
+        if (hex_list[i] - 9 > 0):
+            hex_list[i] = chr(hex_list[i] + 55)
+
+    return hex_list
+
+# ----- end of conv_endian() implementation -----
