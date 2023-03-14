@@ -1,30 +1,32 @@
 import math
 
+
 def conv_num(num_str):
     """
     Converts a string representation of a number to an integer or a float.
     """
-    
+
     if num_str is None or len(num_str) == 0:
         return None
-    
+
     # We first convert the string to all lower case
     num_str = to_lower(num_str)
-    
-    # We then check the sign of the number in the string, and then remove the sign from it after storing it in a variable
+
+    # We then check the sign of the number in the string, and then remove the
+    # sign from it after storing it in a variable
     if starts_with_sign(num_str):
         sign = -1 if num_str[0] == "-" else 1
         num_str = num_str[1:]
     else:
         sign = 1
-    
+
     # check if the string starts with "0x"
     if num_str.startswith("0x"):
         for char in num_str[2:]:
             if not is_hex_digit(char):
                 return None
         return sign * hex_to_int(num_str[2:])
-    
+
     # track of the number of decimal points in the string
     decimal_point_count = 0
     for i, char in enumerate(num_str):
@@ -34,8 +36,17 @@ def conv_num(num_str):
                 return None
         elif not is_digit(char):
             return None
-        
+
     # return the string as float
+    return string_float(num_str, sign, decimal_point_count)
+
+
+# helper functions
+
+def string_float(num_str, sign, decimal_point_count):
+    """
+    converts a string to lowercase
+    """
     if decimal_point_count == 0:
         return sign * str_to_int(num_str)
     else:
@@ -49,21 +60,18 @@ def conv_num(num_str):
         return int_val + frac_val
 
 
-# helper functions
-
 def to_lower(string):
     """
     converts a string to lowercase
     """
-    
-    return "".join([chr(ord(char) + 32) if 65 <= ord(char) <= 90 else char for char in string])
+    return "".join([chr(ord(char) + 32) if 65 <= ord(char) <= 90 else char
+                    for char in string])
 
 
 def starts_with_sign(string):
     """
     checks the sign in string
     """
-    
     return string.startswith("+") or string.startswith("-")
 
 
@@ -71,7 +79,6 @@ def is_hex_digit(char):
     """
     checks if a character is a valid hexadecimal digit
     """
-    
     return char in "0123456789abcdefABCDEF"
 
 
@@ -79,7 +86,6 @@ def is_digit(char):
     """
     check if a character is a digit
     """
-    
     return 48 <= ord(char) <= 57
 
 
@@ -87,7 +93,6 @@ def str_to_int(num_str):
     """
     converts a string of digits to an integer
     """
-    
     num = 0
     for char in num_str:
         num = num * 10 + ord(char) - 48
@@ -98,7 +103,6 @@ def str_to_frac(num_str):
     """
     converts a string of digits representing a fraction to a float
     """
-    
     frac = 0
     divisor = 10
     for char in num_str:
@@ -111,7 +115,6 @@ def hex_to_int(hex_str):
     """
     converts a hexadecimal string to an integer
     """
-    
     hex_str = to_lower(hex_str)
     num = 0
     for char in hex_str:
@@ -120,8 +123,8 @@ def hex_to_int(hex_str):
         else:
             num = num * 16 + ord(char) - 87
     return num
-
 # ----- end of conv_num() implementation -----
+
 
 def my_datetime(num_sec):
     """ This function takes in an integer representing a number of seconds
@@ -236,7 +239,6 @@ def findMo(is_leap, days):
         mo += 1
 
     return (days, mo)
-
 # ----- end of my_datetime() implementation -----
 
 
@@ -331,7 +333,5 @@ def dec_to_hex(dec):
     for i in range(len(hex_list)):
         if (hex_list[i] - 9 > 0):
             hex_list[i] = chr(hex_list[i] + 55)
-
     return hex_list
-
 # ----- end of conv_endian() implementation -----
