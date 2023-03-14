@@ -1,6 +1,10 @@
+import random
 import unittest
+from datetime import datetime as dt
 from task import my_datetime, is_leap, numLeaps, \
                  findMo, conv_endian, dec_to_hex, conv_num
+
+STRESS = 10000
 
 
 class TestConvNum(unittest.TestCase):
@@ -114,6 +118,24 @@ class TestCase(unittest.TestCase):
         self.assertEqual(conv_endian(0, "little"), "00")
 
     # --- end of conv_endian() testing --- #
+
+    # --- adding random testing for conv_num() and mydate_time --- #
+    def test_pressure1(self):
+        # Random testing for conv_num()
+        for _ in range(STRESS):
+            dec_val = random.randint(-10_000_000, 10_000_000)
+            hex_val = hex(dec_val)
+            self.assertEqual(dec_val, conv_num(hex_val), msg=f"{hex_val} != \
+                             {dec_val}")
+
+    def test_pressure2(self):
+        # Random testing for my_datetime()
+        for i in range(STRESS):
+            seconds = random.randint(0, 10000000000)
+            out = my_datetime(seconds)
+            test = dt.utcfromtimestamp(seconds).strftime('%m-%d-%Y')
+            msg = 'Failure: {} should be {}'.format(out, test)
+            self.assertEqual(out, test, msg)
 
 
 if __name__ == '__main__':
