@@ -116,7 +116,6 @@ def hex_to_int(hex_str):
         else:
             num = num * 16 + ord(char) - 87
     return num
-
 # ----- end of conv_num() implementation -----
 
 
@@ -233,7 +232,6 @@ def findMo(is_leap, days):
         mo += 1
 
     return (days, mo)
-
 # ----- end of my_datetime() implementation -----
 
 
