@@ -38,6 +38,15 @@ def conv_num(num_str):
             return None
 
     # return the string as float
+    return string_float(num_str, sign, decimal_point_count)
+
+
+# helper functions
+
+def string_float(num_str, sign, decimal_point_count):
+    """
+    converts a string to lowercase
+    """
     if decimal_point_count == 0:
         return sign * str_to_int(num_str)
     else:
@@ -50,8 +59,6 @@ def conv_num(num_str):
             frac_val = round(frac_val, len(frac_part))
         return int_val + frac_val
 
-
-# helper functions
 
 def to_lower(string):
     """

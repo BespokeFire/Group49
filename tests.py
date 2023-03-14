@@ -1,5 +1,7 @@
 import unittest
-from task import my_datetime, is_leap, numLeaps, findMo, conv_endian, dec_to_hex, conv_num
+from task import my_datetime, is_leap, numLeaps, \
+                 findMo, conv_endian, dec_to_hex, conv_num
+
 
 class TestConvNum(unittest.TestCase):
     def test_conv_num(self):
@@ -116,4 +118,3 @@ class TestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
-
