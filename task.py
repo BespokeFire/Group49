@@ -328,7 +328,5 @@ def dec_to_hex(dec):
     for i in range(len(hex_list)):
         if (hex_list[i] - 9 > 0):
             hex_list[i] = chr(hex_list[i] + 55)
-
     return hex_list
-
 # ----- end of conv_endian() implementation -----
